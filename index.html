@@ -9,71 +9,25 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Poppins;background:#f6f6f6;color:#111;}
+body{font-family:Poppins;background:#f6f6f6;}
 
 /* NAV */
 header{
 display:flex;justify-content:space-between;
-align-items:center;
-padding:15px 20px;background:#fff;
-position:sticky;top:0;z-index:100;
+padding:15px;background:#fff;position:sticky;top:0;
 }
-.logo{
-font-family:'Playfair Display', serif;
-font-size:22px;color:#2e5e4e;
-}
-nav a{margin:0 8px;font-size:14px;cursor:pointer;}
+.logo{font-family:'Playfair Display';font-size:22px;color:#2e5e4e;}
+
+.btn{background:#111;color:#fff;padding:10px;border:none;border-radius:6px;cursor:pointer;}
 
 /* HERO */
 .hero{
-margin:20px;
-background:#fff;border-radius:20px;
-display:flex;align-items:center;
-justify-content:space-between;
+margin:20px;background:#fff;border-radius:20px;
+display:flex;align-items:center;justify-content:space-between;
 padding:20px;
-gap:20px;
 }
-.hero h1{font-size:28px;}
+.hero h1{font-size:26px;}
 .hero span{color:#f4a825;}
-.hero p{font-size:14px;color:#555;margin:10px 0;}
-
-.btn{
-background:#111;color:#fff;
-padding:10px 15px;border:none;
-border-radius:6px;cursor:pointer;
-}
-
-/* HERO IMAGE */
-.hero img{
-width:220px;
-max-width:100%;
-}
-
-/* BANNER */
-.banner-slider{overflow:hidden;margin:20px;}
-.slider-track{
-display:flex;gap:15px;
-animation:scroll 25s linear infinite;
-}
-.slider-track img{
-width:200px;border-radius:12px;
-}
-@keyframes scroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
-}
-
-/* SECTION */
-.section{
-padding:20px;margin:20px;
-background:#fff;border-radius:15px;
-}
-
-/* TRUST */
-.trust{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:10px;text-align:center;
-}
 
 /* PRODUCTS */
 .products{
@@ -81,63 +35,59 @@ display:grid;grid-template-columns:repeat(2,1fr);
 gap:15px;margin:20px;
 }
 .card{
-border-radius:15px;padding:15px;text-align:center;
-cursor:pointer;
+padding:15px;border-radius:15px;text-align:center;cursor:pointer;
 }
 .card:nth-child(odd){background:#f4a825;}
 .card:nth-child(even){background:#111;color:#fff;}
-.card img{width:80px;margin-bottom:10px;}
+.card img{width:80px;}
 
 /* MODAL */
 .modal{
 position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.7);
 display:none;justify-content:center;align-items:center;
 }
+
 .modal-content{
-background:#fff;padding:20px;border-radius:10px;width:280px;
-text-align:center;
+background:#fff;padding:20px;border-radius:15px;width:90%;max-width:350px;
 }
+
+/* SLIDER */
+.slider{position:relative;overflow:hidden;}
+.slides{display:flex;transition:0.4s;}
+.slides img{
+width:100%;border-radius:10px;flex-shrink:0;
+cursor:zoom-in;
+}
+
+.prev,.next{
+position:absolute;top:50%;transform:translateY(-50%);
+background:#000;color:#fff;border:none;padding:5px;
+}
+.prev{left:5px;} .next{right:5px;}
+
+/* FULL SCREEN */
+.fullscreen{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#000;display:none;justify-content:center;align-items:center;
+}
+.fullscreen img{width:90%;}
 
 /* CART */
 .cart{
 position:fixed;right:-320px;top:0;height:100%;
 width:300px;background:#fff;padding:15px;
-transition:0.3s;overflow-y:auto;
+transition:0.3s;overflow:auto;
 }
 .cart.active{right:0;}
-input,select{
-width:100%;padding:8px;margin:5px 0;
-}
 
-/* FOOTER */
-footer{
-background:#111;color:#fff;
-padding:20px;text-align:center;
-}
+input,select{width:100%;margin:5px 0;padding:8px;}
 
-/* LAPTOP */
 @media(min-width:768px){
-
-.hero{padding:40px;margin:40px;}
+.products{grid-template-columns:repeat(3,1fr);}
+.hero{padding:40px;}
 .hero h1{font-size:40px;}
-.hero img{width:350px;}
-
-.products{
-grid-template-columns:repeat(3,1fr);
-margin:40px;
 }
-
-.slider-track img{width:280px;}
-
-.trust{
-grid-template-columns:repeat(4,1fr);
-}
-
-.section{margin:40px;padding:40px;}
-
-}
-
 </style>
 </head>
 
@@ -145,76 +95,46 @@ grid-template-columns:repeat(4,1fr);
 
 <header>
 <div class="logo">Varsha Organic</div>
-<nav>
-<a onclick="scrollToSection('products')">Products</a>
-<a onclick="toggleCart()">Cart</a>
-</nav>
+<button onclick="toggleCart()" class="btn">Cart</button>
 </header>
 
-<!-- HERO -->
 <section class="hero">
 <div>
 <h1>Natural Beauty <span>Solutions</span></h1>
-<p>100% Herbal Skincare & Haircare</p>
-<button class="btn" onclick="scrollToSection('products')">Shop Now</button>
+<p>100% Herbal Skincare</p>
 </div>
-<img src="images/hero.jpg">
+<img src="images/hero.jpg" width="150">
 </section>
 
-<!-- BANNER -->
-<section class="banner-slider">
-<div class="slider-track">
-<img src="images/banner1.jpg">
-<img src="images/banner2.jpg">
-<img src="images/banner3.jpg">
-<img src="images/banner4.jpg">
-<img src="images/banner5.jpg">
-<img src="images/banner6.jpg">
-
-<img src="images/banner1.jpg">
-<img src="images/banner2.jpg">
-</div>
-</section>
-
-<!-- ABOUT -->
-<section class="section">
-<h2>About Varsha Organic</h2>
-<p>Varsha Organic is a natural beauty & wellness brand providing herbal skincare, haircare and wellness products.</p>
-</section>
-
-<!-- TRUST -->
-<section class="section trust">
-<div>🌿 Natural</div>
-<div>🧪 Chemical Free</div>
-<div>✔ Safe</div>
-<div>⭐ Trusted</div>
-</section>
-
-<!-- PRODUCTS -->
-<section id="products" class="products"></section>
-
-<!-- WHY -->
-<section class="section">
-<h2>Why Choose Us</h2>
-<p>✔ Herbal Ingredients</p>
-<p>✔ Affordable</p>
-<p>✔ Visible Results</p>
-</section>
-
-<!-- CONTACT -->
-<section class="section">
-<h2>Contact</h2>
-<p>📞 7387938584</p>
-<p>📷 @varsha.thorat_makeover</p>
-</section>
+<section class="products" id="products"></section>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
+
+<div class="slider">
+<button class="prev" onclick="moveSlide(-1)">❮</button>
+
+<div class="slides" id="slides">
+<img id="img1">
+<img id="img2">
+<img id="img3">
+<img id="img4">
+</div>
+
+<button class="next" onclick="moveSlide(1)">❯</button>
+</div>
+
 <h3 id="pname"></h3>
 <p id="pprice"></p>
 <button class="btn" onclick="addToCart()">Add to Cart</button>
+
 </div>
+</div>
+
+<!-- FULLSCREEN -->
+<div class="fullscreen" id="fullscreen" onclick="closeZoom()">
+<img id="zoomImg">
 </div>
 
 <!-- CART -->
@@ -228,51 +148,59 @@ grid-template-columns:repeat(4,1fr);
 <input id="address" placeholder="Address">
 
 <select id="payment">
-<option>Cash on Delivery</option>
+<option>COD</option>
 <option>UPI</option>
 </select>
 
 <button class="btn" onclick="checkout()">Order</button>
 </div>
 
-<footer>
-© Varsha Organic | Natural Beauty Brand
-</footer>
-
-<a href="https://wa.me/917387938584" target="_blank"
-style="position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:12px;border-radius:50%;">💬</a>
-
 <script>
 let products=[
-{name:"Gold Face Wash",price:299,img:"images/product1.jpg"},
-{name:"Hair Oil",price:399,img:"images/product2.jpg"},
-{name:"Coffee Combo",price:499,img:"images/product3.jpg"},
-{name:"Rosemary Water",price:249,img:"images/product4.jpg"},
-{name:"Shampoo",price:299,img:"images/product5.jpg"},
-{name:"Cream",price:349,img:"images/product6.jpg"}
+"Gold Face Wash","Hair Oil","Coffee Combo","Rosemary Water",
+"Shampoo","Fairness Cream","Day Night Combo",
+"Underarm Cream","Beet Tint","Weight Drops"
 ];
 
-let cart=[];
-let current={};
+let prices=[299,399,499,249,299,349,499,299,199,399];
+
+let cart=[],current={},index=0;
 
 function loadProducts(){
 let html="";
 products.forEach((p,i)=>{
 html+=`<div class="card" onclick="openModal(${i})">
-<img src="${p.img}">
-<h3>${p.name}</h3>
-<p>₹${p.price}</p>
+<img src="images/product${i+1}.jpg">
+<h3>${p}</h3><p>₹${prices[i]}</p>
 </div>`;
 });
 document.getElementById("products").innerHTML=html;
 }
 
 function openModal(i){
-current=products[i];
+current={name:products[i],price:prices[i]};
 modal.style.display="flex";
-pname.innerText=current.name;
-pprice.innerText="₹"+current.price;
+
+for(let j=1;j<=4;j++){
+let img=document.getElementById("img"+j);
+img.src="images/product"+(i+1)+"_"+j+".jpg";
+img.onclick=()=>zoom(img.src);
 }
+}
+
+function moveSlide(step){
+let slides=document.getElementById("slides");
+index=(index+step+4)%4;
+slides.style.transform="translateX(-"+(index*100)+"%)";
+}
+
+setInterval(()=>moveSlide(1),3000);
+
+function zoom(src){
+fullscreen.style.display="flex";
+zoomImg.src=src;
+}
+function closeZoom(){fullscreen.style.display="none";}
 
 function addToCart(){
 cart.push(current);
@@ -282,8 +210,7 @@ updateCart();
 
 function updateCart(){
 let list=document.getElementById("cartItems");
-let total=0;
-list.innerHTML="";
+let total=0;list.innerHTML="";
 cart.forEach(i=>{
 let li=document.createElement("li");
 li.innerText=i.name+" ₹"+i.price;
@@ -301,25 +228,15 @@ function checkout(){
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let address=document.getElementById("address").value;
-let payment=document.getElementById("payment").value;
 
-if(!name || !phone || !address){
-alert("Fill all details");
-return;
-}
+if(!name||!phone||!address){alert("Fill all");return;}
 
-let msg="Hello Varsha Organic,\n\nOrder:\n";
-cart.forEach((i,index)=>{
-msg += (index+1)+". "+i.name+" ₹"+i.price+"\n";
-});
+let msg="Order:\n";
+cart.forEach((i,x)=>msg+=(x+1)+". "+i.name+" ₹"+i.price+"\n");
 
-msg += "\nName: "+name+"\nPhone: "+phone+"\nAddress: "+address+"\nPayment: "+payment;
+msg+="\nName:"+name+"\nPhone:"+phone+"\nAddress:"+address;
 
 window.open("https://wa.me/917387938584?text="+encodeURIComponent(msg));
-}
-
-function scrollToSection(id){
-document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
 
 loadProducts();
