@@ -3,90 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Varsha Organic</title>
+<title>Varsha Organic - Natural Skincare</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Poppins;background:#f6f6f6;}
+body{font-family:Poppins;background:#f6f6f6;color:#111;overflow-x:hidden;}
 
-/* NAV */
-header{
-display:flex;justify-content:space-between;
-padding:15px;background:#fff;position:sticky;top:0;
-}
+header{display:flex;justify-content:space-between;padding:15px;background:#fff;position:sticky;top:0;z-index:100;}
 .logo{font-family:'Playfair Display';font-size:22px;color:#2e5e4e;}
-
 .btn{background:#111;color:#fff;padding:10px;border:none;border-radius:6px;cursor:pointer;}
 
-/* HERO */
-.hero{
-margin:20px;background:#fff;border-radius:20px;
-display:flex;align-items:center;justify-content:space-between;
-padding:20px;
-}
-.hero h1{font-size:26px;}
-.hero span{color:#f4a825;}
+.hero{margin:20px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:space-between;padding:20px;gap:20px;}
+.hero img{width:150px;}
+.hero h1 span{color:#f4a825;}
 
-/* PRODUCTS */
-.products{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:15px;margin:20px;
-}
-.card{
-padding:15px;border-radius:15px;text-align:center;cursor:pointer;
-}
+.section{background:#fff;margin:20px;padding:20px;border-radius:15px;}
+
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:20px;}
+.card{padding:15px;border-radius:15px;text-align:center;cursor:pointer;}
 .card:nth-child(odd){background:#f4a825;}
 .card:nth-child(even){background:#111;color:#fff;}
 .card img{width:80px;}
 
-/* MODAL */
-.modal{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-display:none;justify-content:center;align-items:center;
-}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:none;justify-content:center;align-items:center;}
+.modal-content{background:#fff;padding:15px;border-radius:15px;width:90%;max-width:350px;}
 
-.modal-content{
-background:#fff;padding:20px;border-radius:15px;width:90%;max-width:350px;
-}
-
-/* SLIDER */
 .slider{position:relative;overflow:hidden;}
 .slides{display:flex;transition:0.4s;}
-.slides img{
-width:100%;border-radius:10px;flex-shrink:0;
-cursor:zoom-in;
-}
+.slides img{width:100%;flex-shrink:0;border-radius:10px;cursor:zoom-in;}
 
-.prev,.next{
-position:absolute;top:50%;transform:translateY(-50%);
-background:#000;color:#fff;border:none;padding:5px;
-}
+.prev,.next{position:absolute;top:50%;transform:translateY(-50%);background:#000;color:#fff;border:none;padding:5px;}
 .prev{left:5px;} .next{right:5px;}
 
-/* FULL SCREEN */
-.fullscreen{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:#000;display:none;justify-content:center;align-items:center;
-}
+.fullscreen{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;justify-content:center;align-items:center;}
 .fullscreen img{width:90%;}
 
-/* CART */
-.cart{
-position:fixed;right:-320px;top:0;height:100%;
-width:300px;background:#fff;padding:15px;
-transition:0.3s;overflow:auto;
-}
+.cart{position:fixed;right:-320px;top:0;height:100%;width:300px;background:#fff;padding:15px;transition:0.3s;overflow:auto;}
 .cart.active{right:0;}
-
 input,select{width:100%;margin:5px 0;padding:8px;}
 
 @media(min-width:768px){
 .products{grid-template-columns:repeat(3,1fr);}
-.hero{padding:40px;}
-.hero h1{font-size:40px;}
+.hero img{width:300px;}
 }
 </style>
 </head>
@@ -98,42 +58,66 @@ input,select{width:100%;margin:5px 0;padding:8px;}
 <button onclick="toggleCart()" class="btn">Cart</button>
 </header>
 
+<!-- HERO -->
 <section class="hero">
 <div>
 <h1>Natural Beauty <span>Solutions</span></h1>
-<p>100% Herbal Skincare</p>
+<p>100% Herbal Skincare & Haircare</p>
+<button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
 </div>
-<img src="images/hero.jpg" width="150">
+<img src="images/hero.jpg">
 </section>
 
-<section class="products" id="products"></section>
+<!-- TRUST -->
+<section class="section">
+<div>🌿 Natural | 🧪 Chemical Free | 🚚 Fast Delivery | ⭐ Trusted</div>
+</section>
+
+<!-- ABOUT -->
+<section class="section">
+<h2>About</h2>
+<p>Varsha Organic provides safe herbal skincare & haircare products.</p>
+</section>
+
+<!-- OFFER -->
+<section class="section" style="background:#111;color:#fff;text-align:center;">
+🔥 Limited Stock Available
+</section>
+
+<!-- REVIEWS -->
+<section class="section" style="text-align:center;">
+⭐⭐⭐⭐⭐ 500+ Happy Customers
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="products"></section>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
 
+<button onclick="closeModal()">❌</button>
+
 <div class="slider">
 <button class="prev" onclick="moveSlide(-1)">❮</button>
-
 <div class="slides" id="slides">
-<img id="img1">
-<img id="img2">
-<img id="img3">
-<img id="img4">
+<img id="img1"><img id="img2"><img id="img3"><img id="img4">
 </div>
-
 <button class="next" onclick="moveSlide(1)">❯</button>
 </div>
 
 <h3 id="pname"></h3>
 <p id="pprice"></p>
+
+<p id="pdesc"></p>
+
 <button class="btn" onclick="addToCart()">Add to Cart</button>
 
 </div>
 </div>
 
 <!-- FULLSCREEN -->
-<div class="fullscreen" id="fullscreen" onclick="closeZoom()">
+<div class="fullscreen" id="fullscreen" onclick="this.style.display='none'">
 <img id="zoomImg">
 </div>
 
@@ -164,6 +148,12 @@ let products=[
 
 let prices=[299,399,499,249,299,349,499,299,199,399];
 
+let desc=[
+"Deep cleansing & glow","Hair growth oil","Glow combo",
+"Strong roots","Soft hair shampoo","Skin brightening",
+"Complete care","Underarm care","Natural tint","Weight support"
+];
+
 let cart=[],current={},index=0;
 
 function loadProducts(){
@@ -180,31 +170,37 @@ document.getElementById("products").innerHTML=html;
 function openModal(i){
 current={name:products[i],price:prices[i]};
 modal.style.display="flex";
+document.body.style.overflow="hidden";
+
+index=0;
+slides.style.transform="translateX(0)";
+
+pname.innerText=products[i];
+pprice.innerText="₹"+prices[i];
+pdesc.innerText=desc[i];
 
 for(let j=1;j<=4;j++){
 let img=document.getElementById("img"+j);
 img.src="images/product"+(i+1)+"_"+j+".jpg";
-img.onclick=()=>zoom(img.src);
+img.onclick=()=>{zoomImg.src=img.src;fullscreen.style.display="flex";}
 }
 }
 
+function closeModal(){
+modal.style.display="none";
+document.body.style.overflow="auto";
+}
+
 function moveSlide(step){
-let slides=document.getElementById("slides");
 index=(index+step+4)%4;
 slides.style.transform="translateX(-"+(index*100)+"%)";
 }
 
 setInterval(()=>moveSlide(1),3000);
 
-function zoom(src){
-fullscreen.style.display="flex";
-zoomImg.src=src;
-}
-function closeZoom(){fullscreen.style.display="none";}
-
 function addToCart(){
 cart.push(current);
-modal.style.display="none";
+closeModal();
 updateCart();
 }
 
@@ -225,15 +221,11 @@ document.getElementById("cart").classList.toggle("active");
 }
 
 function checkout(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
-
+let name=nameInput.value,phone=phoneInput.value,address=addressInput.value;
 if(!name||!phone||!address){alert("Fill all");return;}
 
 let msg="Order:\n";
 cart.forEach((i,x)=>msg+=(x+1)+". "+i.name+" ₹"+i.price+"\n");
-
 msg+="\nName:"+name+"\nPhone:"+phone+"\nAddress:"+address;
 
 window.open("https://wa.me/917387938584?text="+encodeURIComponent(msg));
