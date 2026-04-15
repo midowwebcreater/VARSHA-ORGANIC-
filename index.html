@@ -11,7 +11,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:Poppins;background:#f6f6f6;color:#111;}
 
-header{display:flex;justify-content:space-between;padding:15px;background:#fff;position:sticky;top:0;}
+header{display:flex;justify-content:space-between;padding:15px;background:#fff;}
 .logo{font-family:'Playfair Display';font-size:22px;color:#2e5e4e;}
 
 .btn{background:#111;color:#fff;padding:10px;border:none;border-radius:6px;cursor:pointer;}
@@ -23,7 +23,7 @@ header{display:flex;justify-content:space-between;padding:15px;background:#fff;p
 
 .products{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:20px;}
 .card{padding:15px;border-radius:15px;text-align:center;cursor:pointer;transition:0.3s;}
-.card:hover{transform:translateY(-10px) scale(1.03);}
+.card:hover{transform:translateY(-6px);}
 .card:nth-child(odd){background:#f4a825;}
 .card:nth-child(even){background:#111;color:#fff;}
 .card img{width:80px;}
@@ -33,7 +33,7 @@ header{display:flex;justify-content:space-between;padding:15px;background:#fff;p
 
 .slider{position:relative;}
 .slides{display:flex;transition:0.4s;}
-.slides img{width:100%;border-radius:10px;cursor:zoom-in;}
+.slides img{width:100%;border-radius:10px;cursor:pointer;}
 
 .prev,.next{position:absolute;top:50%;transform:translateY(-50%);background:#000;color:#fff;border:none;}
 .prev{left:5px;} .next{right:5px;}
@@ -70,10 +70,6 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;}
 <img src="images/hero.jpg">
 </section>
 
-<section class="section">🌿 Natural | 🚚 3-5 Days | ⭐ Trusted</section>
-
-<section class="section">🔥 Limited Offer - Order Now</section>
-
 <section id="products" class="products"></section>
 
 <!-- MODAL -->
@@ -93,14 +89,12 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;}
 <p id="pprice"></p>
 <p id="pdesc"></p>
 
-<img id="benefitsImg" style="width:100%;">
-<img id="usageImg" style="width:100%;">
-<img id="ingredientsImg" style="width:100%;">
-
-<p>✔ COD Available | 🚚 Fast Delivery</p>
+<img id="benefitsImg">
+<img id="usageImg">
+<img id="ingredientsImg">
 
 <button class="btn" onclick="addToCart()">Add to Cart</button>
-<button class="btn" onclick="buyNow()">Buy Now 🔥</button>
+<button class="btn" onclick="buyNow()">Buy Now</button>
 
 </div>
 </div>
@@ -127,51 +121,71 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;}
 <button class="btn" onclick="checkout()">Order</button>
 </div>
 
-<footer>
-© Varsha Organic | 📞 7387938584
-</footer>
+<footer>© Varsha Organic</footer>
 
 <script>
-let products=["Face Wash","Hair Oil","Coffee Combo","Rosemary","Shampoo","Cream","Combo","Underarm","Tint","Drops"];
-let prices=[299,399,499,249,299,349,499,299,199,399];
-let desc=["Glow","Hair growth","Combo","Roots","Smooth","Bright","Full care","Care","Tint","Weight"];
+let products = [
+{name:"Face Wash",price:299,desc:"Glow",img:"images/product1.jpg"},
+{name:"Hair Oil",price:399,desc:"Hair growth",img:"images/product2.jpg"},
+{name:"Coffee Combo",price:499,desc:"Combo",img:"images/product3.jpg"},
+{name:"Rosemary",price:249,desc:"Roots",img:"images/product4.jpg"},
+{name:"Shampoo",price:299,desc:"Smooth",img:"images/product5.jpg"},
+{name:"Cream",price:349,desc:"Bright",img:"images/product6.jpg"},
+{name:"Combo",price:499,desc:"Full care",img:"images/product7.jpg"},
+{name:"Underarm",price:299,desc:"Care",img:"images/product8.jpg"},
+{name:"Tint",price:199,desc:"Natural",img:"images/product9.jpg"},
+{name:"Drops",price:399,desc:"Weight",img:"images/product10.jpg"}
+];
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
-let current={},index=0;
+let cart=[],current={},index=0;
 
 function loadProducts(){
 let html="";
 products.forEach((p,i)=>{
 html+=`<div class="card" onclick="openModal(${i})">
-<img src="images/product${i+1}.jpg">
-<h3>${p}</h3><p>₹${prices[i]}</p>
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<p>₹${p.price}</p>
 </div>`;
 });
-products.innerHTML=html;
+document.getElementById("products").innerHTML=html;
 }
-function scrollToProducts(){products.scrollIntoView({behavior:'smooth'});}
+
+function scrollToProducts(){
+document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
 
 function openModal(i){
-current={name:products[i],price:prices[i]};
+current=products[i];
 modal.style.display="flex";
+
+pname.innerText=current.name;
+pprice.innerText="₹"+current.price;
+pdesc.innerText=current.desc;
+
+index=0;
+slides.style.transform="translateX(0)";
 
 for(let j=1;j<=4;j++){
 let img=document.getElementById("img"+j);
 img.src="images/product"+(i+1)+"_"+j+".jpg";
 img.onclick=()=>{zoomImg.src=img.src;fullscreen.style.display="flex";}
 }
+
+benefitsImg.src="images/product"+(i+1)+"_benefits.jpg";
+usageImg.src="images/product"+(i+1)+"_usage.jpg";
+ingredientsImg.src="images/product"+(i+1)+"_ingredients.jpg";
 }
+
+function closeModal(){modal.style.display="none";}
 
 function moveSlide(step){
 index=(index+step+4)%4;
 slides.style.transform="translateX(-"+(index*100)+"%)";
 }
 
-function closeModal(){modal.style.display="none";}
-
 function addToCart(){
 cart.push(current);
-localStorage.setItem("cart",JSON.stringify(cart));
 updateCart();
 closeModal();
 }
@@ -186,10 +200,12 @@ cart.forEach(i=>{
 list.innerHTML+=`<li>${i.name} ₹${i.price}</li>`;
 total+=i.price;
 });
-total.innerText="₹"+total;
+document.getElementById("total").innerText="Total ₹"+total;
 }
 
-function toggleCart(){cart.classList.toggle("active");}
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
 
 function checkout(){
 let name=document.getElementById("name").value;
@@ -198,10 +214,8 @@ let address=document.getElementById("address").value;
 
 if(!name||!phone||!address){alert("Fill all");return;}
 
-let id="VO"+Math.floor(Math.random()*10000);
-let msg="Order ID:"+id+"\n";
-
-cart.forEach((i,x)=>msg+=(x+1)+". "+i.name+"\n");
+let msg="Order:\n";
+cart.forEach((i,x)=>msg+=(x+1)+". "+i.name+" ₹"+i.price+"\n");
 
 msg+="\n"+name+"\n"+phone+"\n"+address;
 
@@ -209,7 +223,6 @@ window.open("https://wa.me/917387938584?text="+encodeURIComponent(msg));
 }
 
 loadProducts();
-updateCart();
 </script>
 
 </body>
