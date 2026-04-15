@@ -9,7 +9,7 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
-body{background:#f6f6f6;}
+body{background:#f6f6f6;color:#111;}
 
 /* NAV */
 header{
@@ -18,10 +18,7 @@ padding:20px 40px;background:#fff;
 position:sticky;top:0;z-index:100;
 }
 .logo{font-size:24px;font-weight:700;color:#2e5e4e;}
-
-nav a{
-margin:0 10px;cursor:pointer;color:#333;
-}
+nav a{margin:0 10px;cursor:pointer;color:#333;}
 
 /* HERO */
 .hero{
@@ -38,20 +35,33 @@ background:#111;color:#fff;padding:10px 18px;
 border:none;border-radius:6px;cursor:pointer;
 }
 
+/* BANNER */
+.banner-slider{overflow:hidden;margin:40px;}
+.slider-track{display:flex;gap:20px;animation:scroll 20s linear infinite;}
+.slider-track img{width:250px;border-radius:15px;}
+@keyframes scroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
+}
+
+/* SECTION */
+.section{padding:40px;margin:40px;background:#fff;border-radius:20px;}
+
+/* TRUST */
+.trust{display:flex;justify-content:space-around;}
+
 /* PRODUCTS */
 .products{
 margin:40px;
 display:grid;grid-template-columns:repeat(3,1fr);
 gap:20px;
 }
-
 .card{
 border-radius:20px;padding:20px;text-align:center;
 cursor:pointer;
 }
 .card:nth-child(odd){background:#f4a825;}
 .card:nth-child(even){background:#111;color:#fff;}
-
 .card img{width:90px;margin-bottom:10px;}
 
 /* MODAL */
@@ -61,8 +71,7 @@ background:rgba(0,0,0,0.6);
 display:none;justify-content:center;align-items:center;
 }
 .modal-content{
-background:#fff;padding:25px;border-radius:15px;width:300px;
-text-align:center;
+background:#fff;padding:25px;border-radius:15px;width:300px;text-align:center;
 }
 
 /* CART */
@@ -74,7 +83,7 @@ transition:0.3s;
 .cart.active{right:0;}
 
 footer{
-text-align:center;padding:30px;color:#777;
+background:#111;color:#fff;padding:30px;text-align:center;
 }
 
 /* MOBILE */
@@ -99,14 +108,59 @@ text-align:center;padding:30px;color:#777;
 <section class="hero">
 <div>
 <h1>Natural Beauty <span>Solutions</span></h1>
-<p>100% Herbal Skincare, Haircare & Wellness Products</p>
+<p>100% Herbal Skincare, Haircare & Wellness</p>
 <button class="btn" onclick="scrollToSection('products')">Shop Now</button>
 </div>
 <img src="images/hero.jpg" width="300">
 </section>
 
+<!-- BANNER -->
+<section class="banner-slider">
+<div class="slider-track">
+<img src="images/banner1.jpg">
+<img src="images/banner2.jpg">
+<img src="images/banner3.jpg">
+<img src="images/banner4.jpg">
+<img src="images/banner5.jpg">
+<img src="images/banner6.jpg">
+
+<img src="images/banner1.jpg">
+<img src="images/banner2.jpg">
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="section">
+<h2>About Varsha Organic</h2>
+<p>Varsha Organic is a natural beauty & wellness brand focused on providing 
+100% herbal skincare, haircare and wellness products.</p>
+</section>
+
+<!-- TRUST -->
+<section class="section trust">
+<div>🌿 Natural</div>
+<div>🧪 Chemical Free</div>
+<div>✔ Safe</div>
+<div>⭐ Trusted</div>
+</section>
+
 <!-- PRODUCTS -->
 <section id="products" class="products"></section>
+
+<!-- WHY -->
+<section class="section">
+<h2>Why Choose Us</h2>
+<p>✔ Herbal Ingredients</p>
+<p>✔ Affordable</p>
+<p>✔ Visible Results</p>
+</section>
+
+<!-- CONTACT -->
+<section class="section">
+<h2>Contact</h2>
+<p>📞 7387938584</p>
+<p>📷 @varsha.thorat_makeover</p>
+</section>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
@@ -119,20 +173,18 @@ text-align:center;padding:30px;color:#777;
 
 <!-- CART -->
 <div class="cart" id="cart">
-<h2>Your Cart</h2>
+<h2>Cart</h2>
 <ul id="cartItems"></ul>
 <p id="total"></p>
 <button class="btn" onclick="checkout()">Order on WhatsApp</button>
 </div>
 
 <footer>
-© Varsha Organic | Natural Beauty & Wellness Brand
+© Varsha Organic | Natural Beauty Brand
 </footer>
 
-<!-- WHATSAPP BUTTON -->
 <a href="https://wa.me/917387938584" target="_blank"
-style="position:fixed;bottom:20px;right:20px;background:#25D366;
-color:#fff;padding:15px;border-radius:50%;">💬</a>
+style="position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:15px;border-radius:50%;">💬</a>
 
 <script>
 let products=[
@@ -141,7 +193,7 @@ let products=[
 {name:"Coffee Combo",price:499,img:"images/product3.jpg"},
 {name:"Rosemary Water",price:249,img:"images/product4.jpg"},
 {name:"Shampoo",price:299,img:"images/product5.jpg"},
-{name:"Fairness Cream",price:349,img:"images/product6.jpg"}
+{name:"Cream",price:349,img:"images/product6.jpg"}
 ];
 
 let cart=[];
@@ -150,8 +202,7 @@ let current={};
 function loadProducts(){
 let html="";
 products.forEach((p,i)=>{
-html+=`
-<div class="card" onclick="openModal(${i})">
+html+=`<div class="card" onclick="openModal(${i})">
 <img src="${p.img}">
 <h3>${p.name}</h3>
 <p>₹${p.price}</p>
@@ -187,14 +238,12 @@ document.getElementById("total").innerText="Total ₹"+total;
 }
 
 function toggleCart(){
-cartBox=document.getElementById("cart");
-cartBox.classList.toggle("active");
+document.getElementById("cart").classList.toggle("active");
 }
 
 function checkout(){
-let msg="Hello Varsha Organic,\nI want to order:\n";
+let msg="Hello Varsha Organic,\nOrder:\n";
 cart.forEach(i=>msg+=i.name+" ₹"+i.price+"\n");
-
 window.open("https://wa.me/917387938584?text="+encodeURIComponent(msg));
 }
 
