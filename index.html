@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varsha Organic Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:Poppins;margin:0;background:#fdfaf6;color:#222;}
+.container{width:90%;margin:auto;}
+
+header{display:flex;justify-content:space-between;padding:20px;}
+.logo{font-size:22px;font-weight:700;color:#2e5e4e;}
+
+.btn{background:#2e5e4e;color:white;padding:8px 15px;border:none;border-radius:5px;cursor:pointer;}
+
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 5px 10px rgba(0,0,0,0.05);}
+.card img{width:100%;border-radius:8px;}
+.card h3{margin:10px 0;}
+
+.cart{position:fixed;top:0;right:0;width:300px;height:100%;background:white;padding:20px;box-shadow:-5px 0 10px rgba(0,0,0,0.1);display:none;}
+.cart h2{margin-bottom:10px;}
+
+footer{text-align:center;padding:20px;color:#777;}
+
+@media(max-width:768px){
+.products{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+
+<body>
+
+<header class="container">
+<div class="logo">Varsha Organic</div>
+<button onclick="toggleCart()" class="btn">Cart 🛒</button>
+</header>
+
+<section class="container">
+<h2>Products</h2>
+
+<div class="products">
+
+<div class="card">
+<img src="images/product1.jpg">
+<h3>Gold Face Wash</h3>
+<p>₹299</p>
+<button class="btn" onclick="addToCart('Gold Face Wash',299)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/product2.jpg">
+<h3>Hair Oil</h3>
+<p>₹399</p>
+<button class="btn" onclick="addToCart('Hair Oil',399)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/product3.jpg">
+<h3>Coffee + Rose Combo</h3>
+<p>₹499</p>
+<button class="btn" onclick="addToCart('Coffee Combo',499)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/product4.jpg">
+<h3>Rosemary Water</h3>
+<p>₹249</p>
+<button class="btn" onclick="addToCart('Rosemary Water',249)">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<!-- CART -->
+<div class="cart" id="cart">
+<h2>Your Cart</h2>
+<ul id="cartItems"></ul>
+<p id="total"></p>
+
+<button class="btn" onclick="checkout()">Order on WhatsApp</button>
+</div>
+
+<footer>
+© Varsha Organic
+</footer>
+
+<script>
+let cart = [];
+
+function addToCart(name, price){
+cart.push({name,price});
+alert(name + " added to cart");
+updateCart();
+}
+
+function updateCart(){
+let list = document.getElementById("cartItems");
+let total = 0;
+list.innerHTML="";
+
+cart.forEach(item=>{
+let li=document.createElement("li");
+li.textContent=item.name+" - ₹"+item.price;
+list.appendChild(li);
+total += item.price;
+});
+
+document.getElementById("total").textContent="Total: ₹"+total;
+}
+
+function toggleCart(){
+let cartBox=document.getElementById("cart");
+cartBox.style.display = cartBox.style.display==="block"?"none":"block";
+}
+
+function checkout(){
+let message="Hello, I want to order:\n";
+
+cart.forEach(item=>{
+message += item.name + " - ₹" + item.price + "\n";
+});
+
+window.open("https://wa.me/91XXXXXXXXXX?text="+encodeURIComponent(message));
+}
+</script>
+
+</body>
+</html>
